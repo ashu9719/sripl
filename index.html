@@ -1171,7 +1171,9 @@
             fetch('https://formsubmit.co/ajax/ashu9719@gmail.com', {
                 method: 'POST',
                 body: formData,
-                headers: { 'Accept': 'application/json' }
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json' }
             })
             .then(response => {
                 if (response.ok) {
