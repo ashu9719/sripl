@@ -1166,11 +1166,18 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-            const formData = new FormData(e.target);
+            const data = {
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        'project-type': document.getElementById('project-type').value,
+                        message: message,
+                        _captcha: 'false'
+                    };
 
             fetch('https://formsubmit.co/ajax/ashu9719@gmail.com', {
                 method: 'POST',
-                body: formData,
+                body: JSON.stringify(data),
                 headers: { 
                     'Content-Type': 'application/json',
                     'Accept': 'application/json' }
