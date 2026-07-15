@@ -982,7 +982,7 @@
                 </div>
                 <div class="contact-form fade-in">
                     <h3>Send us a Message</h3>
-                    <form id="contactForm" action="https://formsubmit.co/ashu9719@gmail.com" method="post">
+                    <form id="contactForm" method="post">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
@@ -1015,7 +1015,7 @@
                             <label for="message">Message *</label>
                             <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
+                        <button type="submit" class="btn btn-primary">Send Email <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
                     </form>
                 </div>
             </div>
@@ -1151,6 +1151,7 @@
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
+            const projectType = document.getElementById('project-type').value;
             const message = document.getElementById('message').value.trim();
 
             if (!name || !email || !phone || !message) {
@@ -1162,41 +1163,13 @@
                 return;
             }
 
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            const to = 'ashu9719@gmail.com';
+            const subject = 'Contact Form - ' + name;
+            const body = 'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\nProject Type: ' + projectType + '\n\nMessage:\n' + message;
 
-            const data = {
-                        name: name,
-                        email: email,
-                        phone: phone,
-                        'project-type': document.getElementById('project-type').value,
-                        message: message,
-                        _captcha: 'false'
-                    };
+            window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
-            fetch('https://formsubmit.co/ajax/ashu9719@gmail.com', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json' }
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Thank you for your message! We will get back to you soon.');
-                    e.target.reset();
-                } else {
-                    alert('Something went wrong. Please try again later.');
-                }
-            })
-            .catch(() => {
-                alert('Network error. Please check your connection and try again.');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-            });
+            e.target.reset();
         });
     </script>
 </body>
